@@ -218,6 +218,8 @@ const handle_keydown = (e) => {
 		console.log(cylinder.position);
 	} else if (e.code == 'ArrowRight'){
 		// TODO
+		console.log('right arrow click');
+		nateFlag = true;
 	}
 }
 document.addEventListener('keydown', handle_keydown);
@@ -232,8 +234,10 @@ let cylinderTranslationMatrix = new THREE.Matrix4();
 cylinderTranslationMatrix.makeTranslation(curve1Points[curvePointIdx].x, curve1Points[curvePointIdx].y, curve1Points[curvePointIdx].z);
 cylinder.applyMatrix4(cylinderTranslationMatrix)
 
-
-
+let nateFlag = false
+let newX = null;
+let newY = null;
+let newZ = null;
 function animate() {
 
 	requestAnimationFrame( animate );
@@ -241,9 +245,15 @@ function animate() {
 	// TODO: Animation for the spaceship position
 	if (curvePointIdx < 3000) {
 		curvePointIdx = curvePointIdx + 1;
-		let newX = curve1Points[curvePointIdx].x;
-		let newY = curve1Points[curvePointIdx].y;
-		let newZ = curve1Points[curvePointIdx].z;
+		if (nateFlag){
+			newX = curve2Points[curvePointIdx].x;
+			newY = curve2Points[curvePointIdx].y;
+			newZ = curve2Points[curvePointIdx].z;
+		}else{
+			newX = curve1Points[curvePointIdx].x;
+			newY = curve1Points[curvePointIdx].y;
+			newZ = curve1Points[curvePointIdx].z;
+		}
 		let deltaX = newX - cylinder.position.x;
 		let deltaY = newY - cylinder.position.y;
 		let deltaZ = newZ - cylinder.position.z;
