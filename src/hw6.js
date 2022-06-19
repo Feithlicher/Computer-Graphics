@@ -209,6 +209,9 @@ let cylinderTranslationMatrix = new THREE.Matrix4();
 cylinderTranslationMatrix.makeTranslation(curve1Points[curvePointIdx].x, curve1Points[curvePointIdx].y, curve1Points[curvePointIdx].z);
 cylinder.applyMatrix4(cylinderTranslationMatrix)
 
+let sceneTranslationMatrix = new THREE.Matrix4();
+sceneTranslationMatrix.makeTranslation(0.01, 0, 0);
+
 
 function animate() {
 
@@ -231,6 +234,8 @@ function animate() {
 
 
 	// TODO: Test for star-spaceship collision
+	scene.applyMatrix4(sceneTranslationMatrix);
+
 
 	
 	renderer.render( scene, camera );
