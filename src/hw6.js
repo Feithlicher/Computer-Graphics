@@ -206,6 +206,19 @@ scene.add( curve3Object );
 
 
 // TODO: Add collectible stars
+let curve1Points = curve1.getPoints(3000);
+let curve2Points = curve2.getPoints(3000);
+let curve3Points = curve3.getPoints(3000);
+
+const star1Texture = new THREE.TextureLoader().load('src/textures/star.jpg');
+const star1Geometry = new THREE.SphereGeometry( 1, 32, 16 );
+const star1Material = new THREE.MeshPhongMaterial( { map: star1Texture } );
+const star1 = new THREE.Mesh( star1Geometry, star1Material );
+scene.add( star1 );
+let star1TranslationMatrix = new THREE.Matrix4();
+star1TranslationMatrix.makeTranslation(curve1Points[1000].x, curve1Points[1000].y, curve1Points[1000].z);
+star1.applyMatrix4(star1TranslationMatrix);
+
 
 
 
@@ -231,9 +244,7 @@ const handle_keydown = (e) => {
 document.addEventListener('keydown', handle_keydown);
 
 
-let curve1Points = curve1.getPoints(3000);
-let curve2Points = curve2.getPoints(3000);
-let curve3Points = curve3.getPoints(3000);
+
 let curvePointIdx = 50;
 
 let cylinderTranslationMatrix = new THREE.Matrix4();
@@ -243,6 +254,8 @@ cylinder.applyMatrix4(cylinderTranslationMatrix)
 let newX = null;
 let newY = null;
 let newZ = null;
+
+let playerScore = 0;
 function animate() {
 
 	requestAnimationFrame( animate );
@@ -250,7 +263,15 @@ function animate() {
 	// TODO: Animation for the spaceship position
 	if (curvePointIdx < 3000) {
 		curvePointIdx = curvePointIdx + 1;
+
+		// Check if spaceship colides with star1:
+		
+
 		if (curveNum % 3 === 0){
+			if (curvePointIdx === 1000){
+				star1.visible = false;
+				playerScore = playerScore + 1;
+			}
 			newX = curve1Points[curvePointIdx].x;
 			newY = curve1Points[curvePointIdx].y;
 			newZ = curve1Points[curvePointIdx].z;
@@ -272,6 +293,8 @@ function animate() {
 		let tempCylinderTranslationMatrix = new THREE.Matrix4();
 		tempCylinderTranslationMatrix.makeTranslation(deltaX, deltaY, deltaZ);
 		cylinder.applyMatrix4(tempCylinderTranslationMatrix)
+	}else{
+		alert(`your score is: ${playerScore}`);
 	}
 
 
