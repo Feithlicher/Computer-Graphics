@@ -119,7 +119,7 @@ const moonMaterial = new THREE.MeshBasicMaterial( { map: moonTexture } );
 const moon = new THREE.Mesh( moonGeometry, moonMaterial );
 scene.add( moon );
 let moonTranslationMatrix = new THREE.Matrix4();
-moonTranslationMatrix.makeTranslation(-100,-5,-100);
+moonTranslationMatrix.makeTranslation(0,0,-10);
 moon.applyMatrix4(moonTranslationMatrix);
 
 // This is earth:
@@ -129,7 +129,7 @@ const earthMaterial = new THREE.MeshPhongMaterial( { map: earthTexture } );
 const earth = new THREE.Mesh( earthGeometry, earthMaterial );
 scene.add( earth );
 let earthTranslationMatrix = new THREE.Matrix4();
-earthTranslationMatrix.makeTranslation(80,0,-80);
+earthTranslationMatrix.makeTranslation(140,0,-200);
 earth.applyMatrix4(earthTranslationMatrix);
 
 
@@ -164,20 +164,41 @@ scene.add( spotLight );
 
 
 // TODO: Bezier Curves
+// First curve:
 const curve1 = new THREE.QuadraticBezierCurve3(
-	new THREE.Vector3(-100,-5,-100),
+	new THREE.Vector3(0,0,-10),
 	new THREE.Vector3( 20, 15, -10 ),
-	new THREE.Vector3( 80, 0, -80 )
+	new THREE.Vector3( 140, 0, -200 )
 );
-
-const points = curve1.getPoints( 50 );
-const curveGeometry1 = new THREE.BufferGeometry().setFromPoints( points );
-
+const points1 = curve1.getPoints( 50 );
+const curveGeometry1 = new THREE.BufferGeometry().setFromPoints( points1 );
 const curveMaterial1 = new THREE.LineBasicMaterial( { color: 0xff0000 } );
+const curve1Object = new THREE.Line( curveGeometry1, curveMaterial1 );
+scene.add( curve1Object );
 
-// Create the final object to add to the scene
-const curveObject = new THREE.Line( curveGeometry1, curveMaterial1 );
-scene.add( curveObject );
+// Second curve:
+const curve2 = new THREE.QuadraticBezierCurve3(
+	new THREE.Vector3(0,0,-10),
+	new THREE.Vector3( 50, 15, -10 ),
+	new THREE.Vector3( 140, 0, -200 )
+);
+const points2 = curve2.getPoints( 50 );
+const curveGeometry2 = new THREE.BufferGeometry().setFromPoints( points2 );
+const curveMaterial2 = new THREE.LineBasicMaterial( { color: 0xff0000 } );
+const curve2Object = new THREE.Line( curveGeometry2, curveMaterial2 );
+scene.add( curve2Object );
+
+// Third curve:
+const curve3 = new THREE.QuadraticBezierCurve3(
+	new THREE.Vector3(0,0,-10),
+	new THREE.Vector3( 35, 15, -10 ),
+	new THREE.Vector3( 140, 0, -200 )
+);
+const points3 = curve3.getPoints( 50 );
+const curveGeometry3 = new THREE.BufferGeometry().setFromPoints( points3 );
+const curveMaterial3 = new THREE.LineBasicMaterial( { color: 0xff0000 } );
+const curve3Object = new THREE.Line( curveGeometry3, curveMaterial3 );
+scene.add( curve3Object );
 
 
 // TODO: Camera Settings
@@ -209,8 +230,6 @@ let cylinderTranslationMatrix = new THREE.Matrix4();
 cylinderTranslationMatrix.makeTranslation(curve1Points[curvePointIdx].x, curve1Points[curvePointIdx].y, curve1Points[curvePointIdx].z);
 cylinder.applyMatrix4(cylinderTranslationMatrix)
 
-let sceneTranslationMatrix = new THREE.Matrix4();
-sceneTranslationMatrix.makeTranslation(0.01, 0, 0);
 
 
 function animate() {
@@ -234,7 +253,12 @@ function animate() {
 
 
 	// TODO: Test for star-spaceship collision
-	scene.applyMatrix4(sceneTranslationMatrix);
+	// scene.applyMatrix4(sceneTranslationMatrix);
+	
+	camera.position.x = cylinder.position.x;
+	camera.position.y = cylinder.position.y;
+	camera.position.z = cylinder.position.z + 10;
+	// camera.position.z = camera.position.z - 0.015;
 
 
 	
