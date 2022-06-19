@@ -179,7 +179,7 @@ scene.add( curve1Object );
 // Second curve:
 const curve2 = new THREE.QuadraticBezierCurve3(
 	new THREE.Vector3(0,0,-10),
-	new THREE.Vector3( 50, 15, -10 ),
+	new THREE.Vector3( 35, 15, -10 ),
 	new THREE.Vector3( 140, 0, -200 )
 );
 const points2 = curve2.getPoints( 50 );
@@ -191,7 +191,7 @@ scene.add( curve2Object );
 // Third curve:
 const curve3 = new THREE.QuadraticBezierCurve3(
 	new THREE.Vector3(0,0,-10),
-	new THREE.Vector3( 35, 15, -10 ),
+	new THREE.Vector3( 50, 15, -10 ),
 	new THREE.Vector3( 140, 0, -200 )
 );
 const points3 = curve3.getPoints( 50 );
