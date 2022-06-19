@@ -211,15 +211,21 @@ scene.add( curve3Object );
 
 // TODO: Add keyboard event
 // We wrote some of the function for you
+let curveNum = 0;
 const handle_keydown = (e) => {
 	if(e.code == 'ArrowLeft'){
 		// TODO
-		console.log('arrow left');
-		console.log(cylinder.position);
+		console.log('arrow left clicked');
+		curveNum = curveNum - 1;
+		if (curveNum < 0){
+			curveNum = 2;
+		}
+
+
 	} else if (e.code == 'ArrowRight'){
 		// TODO
-		console.log('right arrow click');
-		nateFlag = true;
+		console.log('right arrow clicked');
+		curveNum = curveNum + 1;
 	}
 }
 document.addEventListener('keydown', handle_keydown);
@@ -234,7 +240,6 @@ let cylinderTranslationMatrix = new THREE.Matrix4();
 cylinderTranslationMatrix.makeTranslation(curve1Points[curvePointIdx].x, curve1Points[curvePointIdx].y, curve1Points[curvePointIdx].z);
 cylinder.applyMatrix4(cylinderTranslationMatrix)
 
-let nateFlag = false
 let newX = null;
 let newY = null;
 let newZ = null;
@@ -245,14 +250,20 @@ function animate() {
 	// TODO: Animation for the spaceship position
 	if (curvePointIdx < 3000) {
 		curvePointIdx = curvePointIdx + 1;
-		if (nateFlag){
-			newX = curve2Points[curvePointIdx].x;
-			newY = curve2Points[curvePointIdx].y;
-			newZ = curve2Points[curvePointIdx].z;
-		}else{
+		if (curveNum % 3 === 0){
 			newX = curve1Points[curvePointIdx].x;
 			newY = curve1Points[curvePointIdx].y;
 			newZ = curve1Points[curvePointIdx].z;
+		}
+		if (curveNum % 3 === 1){
+			newX = curve2Points[curvePointIdx].x;
+			newY = curve2Points[curvePointIdx].y;
+			newZ = curve2Points[curvePointIdx].z;
+		}
+		if (curveNum % 3 === 2){
+			newX = curve3Points[curvePointIdx].x;
+			newY = curve3Points[curvePointIdx].y;
+			newZ = curve3Points[curvePointIdx].z;
 		}
 		let deltaX = newX - cylinder.position.x;
 		let deltaY = newY - cylinder.position.y;
