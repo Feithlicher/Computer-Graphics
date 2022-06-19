@@ -307,8 +307,8 @@ function animate() {
 	requestAnimationFrame( animate );
 
 	// TODO: Animation for the spaceship position
+	curvePointIdx = curvePointIdx + 1;
 	if (curvePointIdx < 3000) {
-		curvePointIdx = curvePointIdx + 1;
 
 		// Check if spaceship colides with star1:
 		
@@ -355,7 +355,8 @@ function animate() {
 		let tempCylinderTranslationMatrix = new THREE.Matrix4();
 		tempCylinderTranslationMatrix.makeTranslation(deltaX, deltaY, deltaZ);
 		cylinder.applyMatrix4(tempCylinderTranslationMatrix)
-	}else{
+	}
+	if (curvePointIdx === 3000){
 		alert(`your score is: ${playerScore}`);
 	}
 
