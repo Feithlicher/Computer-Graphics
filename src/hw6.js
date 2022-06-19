@@ -133,15 +133,9 @@ earthTranslationMatrix.makeTranslation(140,0,-200);
 earth.applyMatrix4(earthTranslationMatrix);
 
 
-// TODO: Add Lighting
-// const directionalLight = new THREE.DirectionalLight( 0xFFFF00, 0.5 );
-// scene.add( directionalLight );
-// scene.add( directionalLight.target );
-
 // Directional light:
 var dl = new THREE.DirectionalLight(0xffffff, 1);
 dl.position.set(0, 5, -10);
-// dl.target.set(0, 0, -10);
 dl.target = earth;
 scene.add(dl);
 
@@ -159,8 +153,6 @@ spotLight.shadow.camera.fov = 30;
 
 spotLight.target = cylinder
 scene.add( spotLight );
-
-
 
 
 // TODO: Bezier Curves
@@ -200,13 +192,22 @@ const curveMaterial3 = new THREE.LineBasicMaterial( { color: 0xff0000 } );
 const curve3Object = new THREE.Line( curveGeometry3, curveMaterial3 );
 scene.add( curve3Object );
 
+// Fourth curve:
+const curve4 = new THREE.QuadraticBezierCurve3(
+	new THREE.Vector3(0,0,-10),
+	new THREE.Vector3( 40, 15, -10 ),
+	new THREE.Vector3( 140, 0, -200 )
+);
+const points4 = curve4.getPoints( 50 );
+const curveGeometry4 = new THREE.BufferGeometry().setFromPoints( points4 );
+const curveMaterial4 = new THREE.LineBasicMaterial( { color: 0xff0000 } );
+const curve4Object = new THREE.Line( curveGeometry4, curveMaterial4 );
+scene.add( curve4Object );
+
 curve1Object.visible = false;
 curve2Object.visible = false;
 curve3Object.visible = false;
-
-
-// TODO: Camera Settings
-// Set the camera following the spaceship here
+curve4Object.visible = false;
 
 
 // TODO: Add collectible stars
@@ -214,6 +215,7 @@ curve3Object.visible = false;
 let curve1Points = curve1.getPoints(3000);
 let curve2Points = curve2.getPoints(3000);
 let curve3Points = curve3.getPoints(3000);
+let curve4Points = curve4.getPoints(3000);
 
 const star1Texture = new THREE.TextureLoader().load('src/textures/star.jpg');
 const star1Geometry = new THREE.SphereGeometry( 1, 32, 16 );
@@ -309,10 +311,6 @@ function animate() {
 	// TODO: Animation for the spaceship position
 	curvePointIdx = curvePointIdx + 1;
 	if (curvePointIdx < 3000) {
-
-		// Check if spaceship colides with star1:
-		
-
 		if (curveNum % 3 === 0){
 			if (curvePointIdx === 1000){
 				star1.visible = false;
@@ -354,22 +352,16 @@ function animate() {
 
 		let tempCylinderTranslationMatrix = new THREE.Matrix4();
 		tempCylinderTranslationMatrix.makeTranslation(deltaX, deltaY, deltaZ);
-		cylinder.applyMatrix4(tempCylinderTranslationMatrix)
+		cylinder.applyMatrix4(tempCylinderTranslationMatrix);
+
+		camera.position.x = curve4Points[curvePointIdx].x - 10;
+		camera.position.y = curve4Points[curvePointIdx].y;
+		camera.position.z = curve4Points[curvePointIdx].z + 15;
 	}
 	if (curvePointIdx === 3000){
-		alert(`your score is: ${playerScore}`);
+		alert(`your score is: ${playerScore}\npress ok to start over`);
+		window.location.reload();
 	}
-
-
-	// TODO: Test for star-spaceship collision
-	// scene.applyMatrix4(sceneTranslationMatrix);
-	
-	camera.position.x = cylinder.position.x;
-	camera.position.y = cylinder.position.y;
-	camera.position.z = cylinder.position.z + 10;
-	// camera.position.z = camera.position.z - 0.015;
-
-
 	
 	renderer.render( scene, camera );
 
