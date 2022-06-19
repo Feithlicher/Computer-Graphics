@@ -200,6 +200,10 @@ const curveMaterial3 = new THREE.LineBasicMaterial( { color: 0xff0000 } );
 const curve3Object = new THREE.Line( curveGeometry3, curveMaterial3 );
 scene.add( curve3Object );
 
+curve1Object.visible = false;
+curve2Object.visible = false;
+curve3Object.visible = false;
+
 
 // TODO: Camera Settings
 // Set the camera following the spaceship here
@@ -257,8 +261,9 @@ const star5Material = new THREE.MeshPhongMaterial( { map: star5Texture } );
 const star5 = new THREE.Mesh( star5Geometry, star5Material );
 scene.add( star5 );
 let star5TranslationMatrix = new THREE.Matrix4();
-star5TranslationMatrix.makeTranslation(curve2Points[2000].x, curve2Points[2000].y, curve2Points[2000].z);
+star5TranslationMatrix.makeTranslation(curve2Points[2500].x, curve2Points[2500].y, curve2Points[2500].z);
 star5.applyMatrix4(star5TranslationMatrix);
+
 
 
 
@@ -318,11 +323,27 @@ function animate() {
 			newZ = curve1Points[curvePointIdx].z;
 		}
 		if (curveNum % 3 === 1){
+			if (curvePointIdx === 1500){
+				star2.visible = false;
+				playerScore = playerScore + 1;
+			}
+			if (curvePointIdx === 2500){
+				star5.visible = false;
+				playerScore = playerScore + 1;
+			}
 			newX = curve2Points[curvePointIdx].x;
 			newY = curve2Points[curvePointIdx].y;
 			newZ = curve2Points[curvePointIdx].z;
 		}
 		if (curveNum % 3 === 2){
+			if (curvePointIdx === 2000){
+				star3.visible = false;
+				playerScore = playerScore + 1;
+			}
+			if (curvePointIdx === 500){
+				star4.visible = false;
+				playerScore = playerScore + 1;
+			}
 			newX = curve3Points[curvePointIdx].x;
 			newY = curve3Points[curvePointIdx].y;
 			newZ = curve3Points[curvePointIdx].z;
