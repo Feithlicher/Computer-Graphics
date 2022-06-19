@@ -206,6 +206,7 @@ scene.add( curve3Object );
 
 
 // TODO: Add collectible stars
+// this is first start
 let curve1Points = curve1.getPoints(3000);
 let curve2Points = curve2.getPoints(3000);
 let curve3Points = curve3.getPoints(3000);
@@ -218,6 +219,46 @@ scene.add( star1 );
 let star1TranslationMatrix = new THREE.Matrix4();
 star1TranslationMatrix.makeTranslation(curve1Points[1000].x, curve1Points[1000].y, curve1Points[1000].z);
 star1.applyMatrix4(star1TranslationMatrix);
+
+// this is second star:
+const star2Texture = new THREE.TextureLoader().load('src/textures/star.jpg');
+const star2Geometry = new THREE.SphereGeometry( 1, 32, 16 );
+const star2Material = new THREE.MeshPhongMaterial( { map: star2Texture } );
+const star2 = new THREE.Mesh( star2Geometry, star2Material );
+scene.add( star2 );
+let star2TranslationMatrix = new THREE.Matrix4();
+star2TranslationMatrix.makeTranslation(curve2Points[1500].x, curve2Points[1500].y, curve2Points[1500].z);
+star2.applyMatrix4(star2TranslationMatrix);
+
+// this is third star:
+const star3Texture = new THREE.TextureLoader().load('src/textures/star.jpg');
+const star3Geometry = new THREE.SphereGeometry( 1, 32, 16 );
+const star3Material = new THREE.MeshPhongMaterial( { map: star3Texture } );
+const star3 = new THREE.Mesh( star3Geometry, star3Material );
+scene.add( star3 );
+let star3TranslationMatrix = new THREE.Matrix4();
+star3TranslationMatrix.makeTranslation(curve3Points[2000].x, curve3Points[2000].y, curve3Points[2000].z);
+star3.applyMatrix4(star3TranslationMatrix);
+
+// this is fourth star:
+const star4Texture = new THREE.TextureLoader().load('src/textures/star.jpg');
+const star4Geometry = new THREE.SphereGeometry( 1, 32, 16 );
+const star4Material = new THREE.MeshPhongMaterial( { map: star4Texture } );
+const star4 = new THREE.Mesh( star4Geometry, star4Material );
+scene.add( star4 );
+let star4TranslationMatrix = new THREE.Matrix4();
+star4TranslationMatrix.makeTranslation(curve3Points[500].x, curve3Points[500].y, curve3Points[500].z);
+star4.applyMatrix4(star4TranslationMatrix);
+
+// this is fourth star:
+const star5Texture = new THREE.TextureLoader().load('src/textures/star.jpg');
+const star5Geometry = new THREE.SphereGeometry( 1, 32, 16 );
+const star5Material = new THREE.MeshPhongMaterial( { map: star5Texture } );
+const star5 = new THREE.Mesh( star5Geometry, star5Material );
+scene.add( star5 );
+let star5TranslationMatrix = new THREE.Matrix4();
+star5TranslationMatrix.makeTranslation(curve2Points[2000].x, curve2Points[2000].y, curve2Points[2000].z);
+star5.applyMatrix4(star5TranslationMatrix);
 
 
 
