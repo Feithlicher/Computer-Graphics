@@ -38,7 +38,7 @@ scene.background = texture;
 // You should copy-paste the spaceship from the previous exercise here
 // This is a cylinder:
 const cylinderGeometry = new THREE.CylinderGeometry( 1, 1, 3, 32 );
-const cylinderMaterial = new THREE.MeshBasicMaterial( {color: 0x0000FF, wireframe: true} );
+const cylinderMaterial = new THREE.MeshPhongMaterial( {color: 0x0000FF, wireframe: false} );
 const cylinder = new THREE.Mesh( cylinderGeometry, cylinderMaterial );
 scene.add( cylinder );
 
@@ -51,7 +51,7 @@ cylinderScaleMatrix.makeScale(0.5,0.5,0.5);
 // cylinder.applyMatrix4(cylinderScaleMatrix)
 // this is whing1:
 const whingGeometry1 = new THREE.PlaneGeometry( 1, 1 );
-const whingMaterial1 = new THREE.MeshBasicMaterial( {color: 0x9900FF, side: THREE.DoubleSide, wireframe: true} );
+const whingMaterial1 = new THREE.MeshPhongMaterial( {color: 0x9900FF, side: THREE.DoubleSide, wireframe: false} );
 const whing1 = new THREE.Mesh( whingGeometry1, whingMaterial1 );
 cylinder.add(whing1);
 
@@ -60,7 +60,7 @@ whing1TranslationMatrix.makeTranslation(1.5,-1,0);
 whing1.applyMatrix4(whing1TranslationMatrix)
 // this is whing2:
 const whingGeometry2 = new THREE.PlaneGeometry( 1, 1 );
-const whingMaterial2 = new THREE.MeshBasicMaterial( {color: 0x9900FF, side: THREE.DoubleSide, wireframe: true} );
+const whingMaterial2 = new THREE.MeshPhongMaterial( {color: 0x9900FF, side: THREE.DoubleSide, wireframe: false} );
 const whing2 = new THREE.Mesh( whingGeometry2, whingMaterial2 );
 cylinder.add(whing2);
 
@@ -73,7 +73,7 @@ wing2rotationMatrix.makeRotationY(1.5708);
 whing2.applyMatrix4(wing2rotationMatrix);
 // this is whing3:
 const whingGeometry3 = new THREE.PlaneGeometry( 1, 1 );
-const whingMaterial3 = new THREE.MeshBasicMaterial( {color: 0x9900FF, side: THREE.DoubleSide, wireframe: true} );
+const whingMaterial3 = new THREE.MeshPhongMaterial( {color: 0x9900FF, side: THREE.DoubleSide, wireframe: false} );
 const whing3 = new THREE.Mesh( whingGeometry3, whingMaterial3 );
 cylinder.add(whing3);
 
@@ -82,7 +82,7 @@ whing3TranslationMatrix.makeTranslation(-1.5,-1,0);
 whing3.applyMatrix4(whing3TranslationMatrix)
 // this is window1:
 const windowGeometry1 = new THREE.RingGeometry( 0.2, 0.3, 32 );
-const windowMaterial1 = new THREE.MeshBasicMaterial( { color: 0xffff00, side: THREE.DoubleSide, wireframe: true } );
+const windowMaterial1 = new THREE.MeshPhongMaterial( { color: 0xffff00, side: THREE.DoubleSide, wireframe: false } );
 const window1 = new THREE.Mesh( windowGeometry1, windowMaterial1 );
 cylinder.add(window1);
 
@@ -91,7 +91,7 @@ window1TranslationMatrix.makeTranslation(0,0.7,1);
 window1.applyMatrix4(window1TranslationMatrix)
 // this is window2:
 const windowGeometry2 = new THREE.RingGeometry( 0.2, 0.3, 32 );
-const windowMaterial2 = new THREE.MeshBasicMaterial( { color: 0xffff00, side: THREE.DoubleSide, wireframe: true } );
+const windowMaterial2 = new THREE.MeshPhongMaterial( { color: 0xffff00, side: THREE.DoubleSide, wireframe: false } );
 const window2 = new THREE.Mesh( windowGeometry2, windowMaterial2 );
 cylinder.add(window2);
 
@@ -100,7 +100,7 @@ window2TranslationMatrix.makeTranslation(0,-0.1,1);
 window2.applyMatrix4(window2TranslationMatrix)
 // this is the head:
 const geometry = new THREE.ConeGeometry( 1, 1, 32 );
-const material = new THREE.MeshBasicMaterial( {color: 0xFF0000, wireframe: true } );
+const material = new THREE.MeshPhongMaterial( {color: 0xFF0000, wireframe: false } );
 const cone = new THREE.Mesh( geometry, material );
 cylinder.add( cone );
 
@@ -115,7 +115,7 @@ cone.applyMatrix4(coneTranslationMatrix);
 // This is the moon:
 const moonTexture = new THREE.TextureLoader().load('src/textures/moon.jpg');
 const moonGeometry = new THREE.SphereGeometry( 5, 32, 16 );
-const moonMaterial = new THREE.MeshBasicMaterial( { map: moonTexture } );
+const moonMaterial = new THREE.MeshPhongMaterial( { map: moonTexture } );
 const moon = new THREE.Mesh( moonGeometry, moonMaterial );
 scene.add( moon );
 let moonTranslationMatrix = new THREE.Matrix4();
@@ -148,7 +148,6 @@ scene.add(dl);
 // Spot light:
 const spotLight = new THREE.SpotLight( 0xffffff );
 spotLight.position.set( 0, 5, -10 );
-
 spotLight.castShadow = true;
 
 spotLight.shadow.mapSize.width = 1024;
@@ -158,6 +157,7 @@ spotLight.shadow.camera.near = 500;
 spotLight.shadow.camera.far = 4000;
 spotLight.shadow.camera.fov = 30;
 
+spotLight.target = cylinder
 scene.add( spotLight );
 
 
